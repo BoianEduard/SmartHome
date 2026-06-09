@@ -2,5 +2,5 @@
 out/
 target/
 .idea/
-.iml
-.log
+*.iml
+*.log
