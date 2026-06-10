@@ -32,7 +32,7 @@ public class UpdateReadingCommand implements SensorCommand {
     }
 
     public String describe() {
-        return String.format(java.util.Locale.US, "UpdateReading[sensor=%s, value=%.2f]", sensor.getId(), newValue);
+        return String.format(java.util.Locale.UK, "UpdateReading[sensor=%s, value=%.2f]", sensor.getId(), newValue);
     }
 
     public boolean isExecuted() { return executed; }

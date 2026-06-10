@@ -1,6 +1,6 @@
 package com.smarthome.service;
 
-import com.smarthome.domain.AlertLevel;
+import com.smarthome.strategy.AlertLevel;
 import com.smarthome.domain.Sensor;
 import com.smarthome.exceptions.SensorReadingException;
 

@@ -11,13 +11,9 @@ import java.util.stream.Collectors;
 
 public class MonitoringService {
 
-    // ------------------------------------------------------------------ room management
-
     public static void addRoom(SmartHome home, Room room) throws RoomAlreadyExistsException {
         home.addRoom(room);
     }
-
-    // ------------------------------------------------------------------ sensor queries (streams + lambdas)
 
     public static List<Sensor> findSensors(SmartHome home, Predicate<Sensor> predicate) {
         return home.getRooms().stream()
@@ -40,8 +36,6 @@ public class MonitoringService {
     public static List<Sensor> getInactiveSensors(SmartHome home) {
         return findSensors(home, s -> !s.isActive());
     }
-
-    // ------------------------------------------------------------------ reports (collections + streams)
 
     public static Map<String, Long> getSensorCountPerRoom(SmartHome home) {
         return home.getRooms().stream()
@@ -72,24 +66,21 @@ public class MonitoringService {
                 .mapToDouble(Sensor::getCurrentReading)
                 .summaryStatistics();
     }
-    
+
     public static void printFullReport(SmartHome home) {
         System.out.printf("%n========== Smart Home Report: %s ==========%n", home.getName());
 
-        // per-room sensor count
-        System.out.printf("%n--- Sensors per Room ---%n");
+        System.out.printf("%n Sensors per Room %n");
         getSensorCountPerRoom(home)
                 .forEach((room, count) -> System.out.printf("  %-20s : %d sensor(s)%n", room, count));
 
-        // sensors by alert level
-        System.out.printf("%n--- Sensors by Alert Level ---%n");
+        System.out.printf("%n Sensors by Alert Level %n");
         getSensorsByAlertLevel(home).forEach((level, sensors) -> {
             System.out.printf("  %s:%n", level);
             sensors.forEach(s -> System.out.printf("    %s%n", s));
         });
 
-        // statistics per type
-        System.out.printf("%n--- Reading Statistics by Type ---%n");
+        System.out.printf("%n Reading Statistics by Type %n");
         for (SensorType type : SensorType.values()) {
             DoubleSummaryStatistics stats = getReadingStatistics(home, type);
             if (stats.getCount() > 0) {
@@ -98,7 +89,6 @@ public class MonitoringService {
                         stats.getMin(), stats.getMax(), stats.getAverage());
             }
         }
-        System.out.printf("%n===========================================%n");
     }
 
     public static void printMaxReadings(SmartHome home) {
@@ -108,7 +98,6 @@ public class MonitoringService {
             room.getSensors().forEach(sensor -> {
                 double max;
                 if (sensor instanceof AbstractSensor abs) {
-                    // Pattern matching (Java 16+) — safe downcast to access history
                     max = abs.getReadingHistory().stream()
                             .mapToDouble(Double::doubleValue)
                             .max()

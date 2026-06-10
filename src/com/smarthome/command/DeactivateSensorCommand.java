@@ -1,6 +1,7 @@
 package com.smarthome.command;
 
 import com.smarthome.domain.AbstractSensor;
+import com.smarthome.domain.Sensor;
 import com.smarthome.exceptions.SensorReadingException;
 
 public class DeactivateSensorCommand implements SensorCommand {
@@ -8,11 +9,14 @@ public class DeactivateSensorCommand implements SensorCommand {
     private boolean previousState;
     private boolean executed = false;
 
-    public DeactivateSensorCommand(AbstractSensor sensor) {
+    public DeactivateSensorCommand(Sensor sensor) {
         if (sensor == null) {
             throw new IllegalArgumentException("Sensor may not be null");
         }
-        this.sensor = sensor;
+        if (!(sensor instanceof AbstractSensor)) {
+            throw new IllegalArgumentException("Requires AbstractSensor");
+        }
+        this.sensor = (AbstractSensor) sensor;
     }
 
     @Override

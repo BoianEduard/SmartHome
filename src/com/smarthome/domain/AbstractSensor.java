@@ -30,6 +30,9 @@ public abstract class AbstractSensor implements Sensor {
         if (type == null ) {
             throw new IllegalArgumentException("Sensor type may not be null or blank");
         }
+        if (alertStrategy == null) {
+            throw new IllegalArgumentException("AlertStrategy may not be null");
+        }
 
         this.id = id;
         this.name = name;
@@ -38,6 +41,7 @@ public abstract class AbstractSensor implements Sensor {
         this.currentReading = currentReading;
         this.lastUpdated = LocalDateTime.now();
         this.alertStrategy = alertStrategy;
+        readingHistory.add(currentReading);
     }
 
     @Override

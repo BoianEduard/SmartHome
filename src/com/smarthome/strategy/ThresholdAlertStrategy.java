@@ -20,4 +20,7 @@ public class ThresholdAlertStrategy implements AlertStrategy {
 
         return AlertLevel.INFO;
     }
+
+    public double getWarningThreshold()  { return warningThreshold; }
+    public double getCriticalThreshold() { return criticalThreshold; }
 }

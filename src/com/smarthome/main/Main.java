@@ -6,14 +6,14 @@ import com.smarthome.command.UpdateReadingCommand;
 import com.smarthome.decorator.LoggingSensorDecorator;
 import com.smarthome.decorator.SmoothingSensorDecorator;
 import com.smarthome.domain.*;
-import com.smarthome.exceptions.RoomAlreadyExists;
+import com.smarthome.exceptions.RoomAlreadyExistsException;
 import com.smarthome.exceptions.SensorReadingException;
 import com.smarthome.strategy.AlertLevel;
 import com.smarthome.strategy.AlertStrategy;
 import com.smarthome.strategy.ThresholdAlertStrategy;
 
 public class Main {
-    public static void main(String[] args) throws RoomAlreadyExists, InterruptedException {
+    public static void main(String[] args) throws RoomAlreadyExistsException, InterruptedException {
         AlertStrategy strategy = new ThresholdAlertStrategy(30.0, 50.0);
         System.out.println(strategy.evaluate(15));
         System.out.println(strategy.evaluate(35));

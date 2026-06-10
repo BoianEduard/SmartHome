@@ -39,4 +39,9 @@ public class Room {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Room{id='%s', name='%s', sensors=%d}", id, name, sensors.size());
+    }
 }
