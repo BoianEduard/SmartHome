@@ -53,10 +53,10 @@ public class MultiThreadingTest {
 
         Thread t = new Thread(task);
         t.start();
-        t.join(3000); // wait up to 3 s
+        t.join(3000);
 
         assertEquals(35.0, sensor.getCurrentReading(), 0.001);
-        assertTrue(alerts.contains("WARNING")); // 35.0 > 30 threshold
+        assertTrue(alerts.contains("WARNING"));
     }
 
     @Test

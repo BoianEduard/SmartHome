@@ -14,11 +14,11 @@ public abstract class AbstractSensor implements Sensor {
     private final String id;
     private final String name;
     private final SensorType type;
-    private boolean active;
-    private double currentReading;
-    private LocalDateTime lastUpdated;
+    private volatile boolean active;
+    private volatile double currentReading;
+    private volatile LocalDateTime lastUpdated;
     private ArrayList<Double> readingHistory = new ArrayList<>();
-    private AlertStrategy alertStrategy;
+    private volatile AlertStrategy alertStrategy;
 
     public AbstractSensor(String id, String name, SensorType type, double currentReading, AlertStrategy alertStrategy) {
         if (id == null || id.isBlank()) {
@@ -65,12 +65,12 @@ public abstract class AbstractSensor implements Sensor {
     }
 
     @Override
-    public List<Double> getReadingHistory() {
+    public synchronized List<Double> getReadingHistory() {
         return Collections.unmodifiableList(readingHistory);
     }
 
     @Override
-    public void updateReading(double value) throws SensorReadingException {
+    public synchronized void updateReading(double value) throws SensorReadingException {
         if (!active) {
             throw new SensorReadingException(id, "Sensor is not active");
         }
@@ -86,7 +86,7 @@ public abstract class AbstractSensor implements Sensor {
     }
 
     @Override
-    public AlertLevel checkAlertLevel() {
+    public synchronized AlertLevel checkAlertLevel() {
         return alertStrategy.evaluate(currentReading);
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractSensor implements Sensor {
         return alertStrategy;
     }
 
-    public void setAlertStrategy(AlertStrategy alertStrategy) {
+    public synchronized void setAlertStrategy(AlertStrategy alertStrategy) {
         if (alertStrategy == null) {
             throw new IllegalArgumentException("Alert strategy can not be null");
         }
@@ -102,7 +102,7 @@ public abstract class AbstractSensor implements Sensor {
         this.alertStrategy = alertStrategy;
     }
 
-    public void setActive(boolean active) {
+    public synchronized void setActive(boolean active) {
         this.active = active;
     }
 

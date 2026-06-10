@@ -60,10 +60,7 @@ public class ReportGenerator {
         for (SensorType type : SensorType.values()) {
             DoubleSummaryStatistics stats = MonitoringService.getReadingStatistics(home, type);
             if (stats.getCount() == 0) continue;
-            sb.append(String.format(REPORT_LOCALE,
-                    "%-20s  count=%-3d  min=%-8.2f  max=%-8.2f  avg=%.2f%n",
-                    type.getDisplayName(),
-                    stats.getCount(), stats.getMin(), stats.getMax(), stats.getAverage()));
+            sb.append(String.format(REPORT_LOCALE, "%-20s  count=%-3d  min=%-8.2f  max=%-8.2f  avg=%.2f%n", type.getDisplayName(), stats.getCount(), stats.getMin(), stats.getMax(), stats.getAverage()));
         }
         return sb.toString();
     }

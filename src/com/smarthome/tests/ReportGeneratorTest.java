@@ -97,6 +97,6 @@ public class ReportGeneratorTest {
     @Test
     public void testGetTopSensorsByReadingLimitHigherThanCount() {
         List<Sensor> top = ReportGenerator.getTopSensorsByReading(home, SensorType.TEMPERATURE, 10);
-        assertEquals(2, top.size()); // only 2 temperature sensors exist
+        assertEquals(2, top.size());
     }
 }

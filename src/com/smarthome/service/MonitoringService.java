@@ -84,9 +84,7 @@ public class MonitoringService {
         for (SensorType type : SensorType.values()) {
             DoubleSummaryStatistics stats = getReadingStatistics(home, type);
             if (stats.getCount() > 0) {
-                System.out.printf("  %-20s count=%-3d min=%.2f max=%.2f avg=%.2f%n",
-                        type.getDisplayName(), stats.getCount(),
-                        stats.getMin(), stats.getMax(), stats.getAverage());
+                System.out.printf("  %-20s count=%-3d min=%.2f max=%.2f avg=%.2f%n", type.getDisplayName(), stats.getCount(), stats.getMin(), stats.getMax(), stats.getAverage());
             }
         }
     }
