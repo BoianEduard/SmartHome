@@ -56,15 +56,15 @@ public class Main {
         humiditySensor.updateReading(75.0);
         System.out.println("Humidity Alert Level: " + humiditySensor.checkAlertLevel());
         try {
-            humiditySensor.updateReading(-2); // Invalid reading exception test
+            humiditySensor.updateReading(-2);
         } catch (SensorReadingException err) {
             System.out.println("Caught invalid reading exception: " + err.getMessage());
         }
 
         // COMPOSITION & ENCAPSULATION (ROOM & SMARTHOME)
         Room r1 = new Room("R1", "Living Room");
-        r1.addSensor(tempSensor); // Reusing configured temperature sensor
-        r1.addSensor(humiditySensor); // Reusing configured humidity sensor
+        r1.addSensor(tempSensor);
+        r1.addSensor(humiditySensor);
         System.out.println("Room Name: " + r1.getName());
         System.out.println("Sensors inside Room 1: " + r1.getSensors().size());
 

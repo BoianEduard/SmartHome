@@ -46,10 +46,10 @@ public abstract  class SensorDecorator implements Sensor {
     @Override
     public List<Double> getReadingHistory() {
        if (wrapped instanceof AbstractSensor abs) {
-           abs.getReadingHistory();
+           return abs.getReadingHistory();
        }
        if (wrapped instanceof SensorDecorator dec) {
-           dec.getReadingHistory();
+           return dec.getReadingHistory();
        }
        return List.of(wrapped.getCurrentReading());
     }

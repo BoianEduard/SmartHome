@@ -29,11 +29,11 @@ public class DeactivateSensorCommand implements SensorCommand {
 
     @Override
     public void undo() {
-        if (!executed) {
+        if (executed) {
             sensor.setActive(previousState);
             executed = false;
+            System.out.printf("[CMD UNDO] Restored sensor '%s' to active=%b%n", sensor.getName(), previousState);
         }
-        System.out.printf("[CMD UNDO] Restored sensor '%s' to active=%b%n", sensor.getName(), previousState);
     }
 
     @Override

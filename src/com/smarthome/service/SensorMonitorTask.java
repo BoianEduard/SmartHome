@@ -7,11 +7,6 @@ import com.smarthome.exceptions.SensorReadingException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
-/**
- * Runnable task that periodically polls a sensor and fires a callback on alert.
- *
- * Demonstrates multi-threading: each sensor can be monitored on its own thread.
- */
 public class SensorMonitorTask implements Runnable {
 
     private final Sensor sensor;
@@ -20,14 +15,7 @@ public class SensorMonitorTask implements Runnable {
     private final AtomicInteger readingIndex = new AtomicInteger(0);
     private volatile boolean running = true;
 
-    /**
-     * @param sensor             the sensor to monitor
-     * @param simulatedReadings  sequence of values to feed in (simulates real sensor data)
-     * @param alertCallback      called whenever the alert level is WARNING or CRITICAL
-     */
-    public SensorMonitorTask(Sensor sensor,
-                             double[] simulatedReadings,
-                             BiConsumer<Sensor, AlertLevel> alertCallback) {
+    public SensorMonitorTask(Sensor sensor, double[] simulatedReadings, BiConsumer<Sensor, AlertLevel> alertCallback) {
         this.sensor            = sensor;
         this.simulatedReadings = simulatedReadings;
         this.alertCallback     = alertCallback;

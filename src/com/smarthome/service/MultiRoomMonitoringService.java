@@ -11,11 +11,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-/**
- * Manages a thread pool that runs one monitoring task per sensor.
- *
- * Demonstrates multi-threading: ExecutorService, Future, concurrent result collection.
- */
 public class MultiRoomMonitoringService {
 
     private final ExecutorService executor;
@@ -24,10 +19,6 @@ public class MultiRoomMonitoringService {
         this.executor = Executors.newFixedThreadPool(threadPoolSize);
     }
 
-    /**
-     * Submits a SensorMonitorTask for every sensor in every room of the home.
-     * Returns a list of Futures so callers can await completion.
-     */
     public List<Future<?>> startMonitoring(SmartHome home) {
         List<Future<?>> futures = new ArrayList<>();
 
@@ -47,9 +38,6 @@ public class MultiRoomMonitoringService {
         return futures;
     }
 
-    /**
-     * Blocks until all submitted tasks complete, then shuts down the executor.
-     */
     public void awaitCompletion(List<Future<?>> futures) {
         for (Future<?> future : futures) {
             try {
@@ -63,7 +51,6 @@ public class MultiRoomMonitoringService {
         executor.shutdown();
     }
 
-    /** Generates a short sequence of simulated readings appropriate for the sensor type. */
     private double[] generateSimulatedReadings(Sensor sensor) {
         return switch (sensor.getType()) {
             case TEMPERATURE -> new double[]{20.0, 25.0, 32.0, 55.0, 28.0};
